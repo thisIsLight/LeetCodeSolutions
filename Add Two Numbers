@@ -1,0 +1,57 @@
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {
+    let result = new ListNode();
+    let tempNode = new ListNode();
+    let carry=0;
+    let count = 0
+    while(l1!=null && l2!=null){
+        var newNode = new ListNode();
+        if(result.next==null)
+        {
+            result.next = newNode
+        }
+        tempNode.next = newNode;
+        var temp = l1.val+l2.val+carry
+        newNode.val = (temp)/10 > 0 ? (temp)%10 : (temp);
+        carry = Math.trunc((temp)/10);
+        l1 = l1.next;
+        l2 = l2.next;
+        tempNode = newNode;
+        count++
+    }
+    while(l1!=null){
+        var newNode = new ListNode();
+        tempNode.next = newNode;
+        var temp = l1.val+carry
+        newNode.val = (temp)/10 > 0 ? (temp)%10 : (temp);
+        carry = Math.trunc((temp)/10);
+        l1 = l1.next;
+        tempNode = newNode
+    }
+    while(l2!=null){
+        var newNode = new ListNode();
+        tempNode.next = newNode;
+        var temp = l2.val+carry
+        newNode.val = (temp)/10 > 0 ? (temp)%10 : (temp);
+        carry = Math.trunc((temp)/10);
+        l2 = l2.next;
+        tempNode = newNode
+    }
+    if(carry!=0){
+        var newNode = new ListNode();
+        tempNode.next = newNode;
+        newNode.val = carry
+    }
+    return result.next
+};
