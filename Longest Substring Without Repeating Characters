@@ -1,0 +1,18 @@
+var lengthOfLongestSubstring = function(s) {
+    let curString = new Map()
+    let maxLen = 0
+    for(let i=0;i<s.length;i++){
+        if(!curString.has(s[i])){
+            curString.set(s[i],i);
+            let curLen = curString.size
+            if(maxLen<curLen){
+                maxLen = curLen
+            }
+        }
+        else{
+            i = curString.get(s[i])
+            curString.clear()
+        }
+    }
+    return maxLen
+};
