@@ -1,0 +1,40 @@
+var findMedianSortedArrays = function(nums1, nums2) {
+    
+    //preparing the merged array
+    let mergedArr = []
+    let index1 = 0
+    let index2 = 0
+    for(let i=0; i<(nums1.length+nums2.length); i++){
+        if(index1<nums1.length && index2<nums2.length){
+            if(nums1[index1] <= nums2[index2]){
+                mergedArr.push(nums1[index1])
+                index1++
+            }
+            else{
+                mergedArr.push(nums2[index2])
+                index2++
+            }
+        }
+        else if(index1<nums1.length){
+            mergedArr.push(nums1[index1])
+            index1++
+        }
+        else{
+            mergedArr.push(nums2[index2])
+            index2++
+        }
+    }
+    
+    let j = mergedArr.length - 1
+    for(let i=0; i<mergedArr.length; i++){
+        if(i==j){
+            return mergedArr[i]
+        }
+        if(i==j-1){
+            return (mergedArr[i]+mergedArr[j])/2
+        }
+        j--;
+    }
+    return 0
+    
+};
