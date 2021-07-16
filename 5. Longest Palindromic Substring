@@ -1,0 +1,34 @@
+var longestPalindrome = function(s) {
+    let rindex=0;
+    let lindex=0;
+    let maxlindex=0;
+    let maxrindex=0
+    let str = s
+    for(let ind=0; ind<str.length; ind++){
+        rindex = ind;
+        lindex = ind;
+        while(lindex>-1 && rindex< str.length && str[rindex]==str[lindex])
+        {
+            if( (rindex-lindex+1) > (maxrindex-maxlindex+1))
+            {
+               maxrindex = rindex;
+               maxlindex = lindex;
+            }
+            lindex--
+            rindex++
+        }
+        rindex = ind;
+        lindex = ind+1;
+        while(lindex>-1 && rindex< str.length && str[rindex]==str[lindex])
+        {
+            if( (rindex-lindex+1) > (maxrindex-maxlindex+1))
+            {
+               maxrindex = rindex;
+               maxlindex = lindex;
+            }
+            lindex--
+            rindex++
+        }
+    }
+    return str.slice(maxlindex,maxrindex+1)
+};
