@@ -1,0 +1,39 @@
+var convert = function(s, numRows) {
+    if(numRows===1){
+        return s
+    }
+    var len = s.length
+    var index = 0
+    let map = new Map();
+    let mapIndex = 0
+    while(index<numRows && index<len){
+        mapIndex = index
+        insertIntoMap(mapIndex,s[index],map)
+        index++
+    }
+    
+    while(index<len){
+        for(let i=0;i<numRows-1 && index<len;i++){
+            mapIndex--
+            insertIntoMap(mapIndex,s[index],map)
+            index++
+        }
+        for(let i=0;i<numRows-1 && index<len;i++){
+            mapIndex++
+            insertIntoMap(mapIndex,s[index],map)
+            index++
+        }
+    }
+    let result = []
+    for(let i=0; i<numRows; i++){
+        var currentRow = map.get(i) == null ? "" : map.get(i).join("")
+        result.push(currentRow)
+    }
+    return result.join("")
+};
+
+var insertIntoMap = function(key, value, map){
+    var arr = map.get(key) || []
+    arr.push(value)
+    map.set(key,arr)
+}
