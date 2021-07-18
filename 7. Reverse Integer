@@ -1,0 +1,25 @@
+var reverse = function(x) {    
+    let n=x
+    let isNeg = n<=0 ? true : false
+    if(isNeg){
+        n=n*(-1)
+    }
+    let result=0
+    let mux=1
+    while(n>0)
+    {
+        let rem = n%10
+        result = (result*mux)+rem
+        n=Math.trunc(n/10)
+        if(mux===1){
+            mux=mux*10
+        }
+    }
+    if(result >= 2147483648 || result <= -2147483648){
+        return 0
+    }
+    if(isNeg){
+        return -1*result
+    }
+    return result
+};
