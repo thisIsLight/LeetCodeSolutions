@@ -1,0 +1,21 @@
+var myAtoi = function(s) {
+    const regex1 = /^\s*[+-]{0,1}\d{1,}/g;
+    var digitString = regex1.exec(s)
+    if(digitString==null){
+        return 0
+    }
+    let str = digitString[0].trim()
+    let sign= ""
+    if(isNaN(str[0])){
+        sign=str[0]
+    }
+    let digits=0
+    let index = sign == "" ? 0 : 1
+    for(index; index<str.length; index++){
+        digits=(digits*10)+parseInt(str[index])
+    }
+    if(digits>=2147483648){
+        return sign == "+" || sign =="" ? 2147483647 : sign+2147483648
+    }
+    return sign+digits
+};
