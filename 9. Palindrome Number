@@ -1,0 +1,12 @@
+var isPalindrome = function(x) {
+    if(x<0){
+        return false;
+    }
+    let reverseNum=0;
+    let tempNum = x;
+    while(tempNum>0){
+        reverseNum = (reverseNum*10)+(tempNum%10);
+        tempNum = Math.trunc(tempNum/10)
+    }
+    return x==reverseNum
+};
