@@ -41,17 +41,43 @@ var isMatch = function(s, p) {
     //    return checkformatch(s,regexstack[0]);
     //}
     let j=0;
+    let curindexinitial = 0;
     let curindex = 0;
     let res = false;
+    let tempstr = ''
     for(let i=0;i<regexstack.length;i= i+2){
         j=i+1;
+        if(!regexstack[0].includes('.') && !regexstack[0].includes('*')){
+            curindex = s.indexOf(regexstack[j]);
+            res = curindex == -1 ? false : true;
+            if(!res){
+                return false
+            }
+            s = s.substring(curindex+regexstack[j].length)
+        }
         if(j<regexstack.length){
-            res = s.indexOf(regexstack[j])
+            curindexinitial = curindex
+            let minlen = countofasterperiod(regexstack[0])
+            curindex = s.indexOf(regexstack[j],minlen);
+            res = curindex == -1 ? false : true;
+            if(!res){
+                return false;
+            }
+            res = checkformatch(s.substring(curindexinitial,curindex),regexstack[i])
+            if(!res){
+                return false;
+            }
+            tempstr = s.substring(curindex)
+            s = s.substring(curindex+regexstack[j].length)
         }
         else{
             res = checkformatch(s.substring(curindex),regexstack[i])
+            tempstr = s.substring(curindex)
         }
     }
+
+    
+    
     return res
     
 };
