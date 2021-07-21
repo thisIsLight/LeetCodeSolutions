@@ -1,0 +1,92 @@
+var isMatch = function(s, p) {
+    if(p == '.*'){
+        return true
+    }
+    let regexstack = [];
+    let str = "";
+    let sym = "";
+    let lastpush="";
+    for(char of p){
+        if(char == '.' || char == '*'){
+            if(regexstack.length != 0){
+                lastpush = regexstack.pop();
+                if(str!=""){
+                    regexstack.push(lastpush);
+                    regexstack.push(str);
+                    str="";
+                    regexstack.push(char);
+                }
+                else{
+                    sym=lastpush+char;
+                    regexstack.push(sym);
+                }
+            }
+            else{
+                if(str!=""){
+                    regexstack.push(str);
+                    str="";   
+                }
+                regexstack.push(char)
+            }
+        }
+        else{
+            str+=char;
+        }
+    }
+    if(str != ""){
+        regexstack.push(str)
+    }
+    console.log(regexstack)
+    //if(regexstack.length == 1){
+    //    return checkformatch(s,regexstack[0]);
+    //}
+    let j=0;
+    let curindex = 0;
+    let res = false;
+    for(let i=0;i<regexstack.length;i= i+2){
+        j=i+1;
+        if(j<regexstack.length){
+            res = s.indexOf(regexstack[j])
+        }
+        else{
+            res = checkformatch(s.substring(curindex),regexstack[i])
+        }
+    }
+    return res
+    
+};
+
+const countofasterperiod = (str) => {
+    let countperiod=0
+    let countaster=0
+    for(char of str){
+        if(char == '.'){
+            countperiod++;
+        }
+        else{
+            countaster++;
+        }
+    }
+    return countperiod-countaster
+}
+
+const checkformatch = (s,exp) => {
+    if(!exp.includes('*') && exp.includes('.')){
+        console.log('all ..')
+        return exp.length == s.length
+    }
+    else if(!exp.includes('*') && exp.includes('.')){
+        console.log('all alphabets')
+        return exp == s
+    }
+    else{
+        console.log('all mixed')
+        let minlen = countofasterperiod(exp);
+        if(s.length>=minlen){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+}
