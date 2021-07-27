@@ -1,118 +1,75 @@
 var isMatch = function(s, p) {
-    if(p == '.*'){
-        return true
+    // DP Solution
+    
+    let str = s.length;
+    let ptr = p.length;
+    
+    
+    //creating dp table with rows as pattern length+1 and columns as string length +1
+    
+    let dp = [ptr+1]
+    for(let i=0; i< ptr+1;i++){
+        dp[i] = [str+1]
     }
-    let regexstack = [];
-    let str = "";
-    let sym = "";
-    let lastpush="";
-    for(char of p){
-        if(char == '.' || char == '*'){
-            if(regexstack.length != 0){
-                lastpush = regexstack.pop();
-                if(str!=""){
-                    regexstack.push(lastpush);
-                    regexstack.push(str);
-                    str="";
-                    regexstack.push(char);
+    
+    for(let i=0;i<ptr+1;i++){
+        for(let j=0;j<str+1;j++){
+            
+            
+            
+            if(i==0 && j==0){
+                dp[i][j] = true
+            }
+            
+            
+            
+            else if(i==0){
+                dp[i][j] = false
+            }
+            
+            
+            
+            else if(j==0){
+                if(dp[i-1] == '*'){
+                    dp[i][j] = dp[i-2][j]
                 }
                 else{
-                    sym=lastpush+char;
-                    regexstack.push(sym);
+                    dp[i][j] = false
                 }
             }
+            
+            
+            
             else{
-                if(str!=""){
-                    regexstack.push(str);
-                    str="";   
+                
+                
+                if(p[i-1] == '*'){
+                    dp[i][j] = dp[i-2][j];
+                    
+                    if(p[i-2] == '.' || p[i-2] == s[j-1]){
+                        dp[i][j] = dp[i][j] || dp[i][j-1]
+                    }
                 }
-                regexstack.push(char)
+                
+                
+                
+                
+                else if(p[i-1] == '.'){
+                    dp[i][j] = dp[i-1][j-1]
+                }
+                
+                
+                
+                else if(p[i-1] == s[j-1]){
+                    dp[i][j] = dp[i-1][j-1]
+                }
+                
+                
+                else{
+                    dp[i][j] = false;
+                }
             }
         }
-        else{
-            str+=char;
-        }
     }
-    if(str != ""){
-        regexstack.push(str)
-    }
-    console.log(regexstack)
-    //if(regexstack.length == 1){
-    //    return checkformatch(s,regexstack[0]);
-    //}
-    let j=0;
-    let curindexinitial = 0;
-    let curindex = 0;
-    let res = false;
-    let tempstr = ''
-    for(let i=0;i<regexstack.length;i= i+2){
-        j=i+1;
-        if(!regexstack[0].includes('.') && !regexstack[0].includes('*')){
-            curindex = s.indexOf(regexstack[j]);
-            res = curindex == -1 ? false : true;
-            if(!res){
-                return false
-            }
-            s = s.substring(curindex+regexstack[j].length)
-        }
-        if(j<regexstack.length){
-            curindexinitial = curindex
-            let minlen = countofasterperiod(regexstack[0])
-            curindex = s.indexOf(regexstack[j],minlen);
-            res = curindex == -1 ? false : true;
-            if(!res){
-                return false;
-            }
-            res = checkformatch(s.substring(curindexinitial,curindex),regexstack[i])
-            if(!res){
-                return false;
-            }
-            tempstr = s.substring(curindex)
-            s = s.substring(curindex+regexstack[j].length)
-        }
-        else{
-            res = checkformatch(s.substring(curindex),regexstack[i])
-            tempstr = s.substring(curindex)
-        }
-    }
-
-    
-    
-    return res
-    
-};
-
-const countofasterperiod = (str) => {
-    let countperiod=0
-    let countaster=0
-    for(char of str){
-        if(char == '.'){
-            countperiod++;
-        }
-        else{
-            countaster++;
-        }
-    }
-    return countperiod-countaster
-}
-
-const checkformatch = (s,exp) => {
-    if(!exp.includes('*') && exp.includes('.')){
-        console.log('all ..')
-        return exp.length == s.length
-    }
-    else if(!exp.includes('*') && exp.includes('.')){
-        console.log('all alphabets')
-        return exp == s
-    }
-    else{
-        console.log('all mixed')
-        let minlen = countofasterperiod(exp);
-        if(s.length>=minlen){
-            return true
-        }
-        else{
-            return false
-        }
-    }
+    return dp[ptr][str]
 }
