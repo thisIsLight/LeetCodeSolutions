@@ -12,8 +12,9 @@ var isMatch = function(s, p) {
         dp[i] = [str+1]
     }
     
-    for(let i=0;i<ptr+1;i++){
-        for(let j=0;j<str+1;j++){
+    for(let i=0; i<ptr+1; i++){
+        
+        for(let j=0; j<str+1; j++){
             
             
             
@@ -30,7 +31,7 @@ var isMatch = function(s, p) {
             
             
             else if(j==0){
-                if(dp[i-1] == '*'){
+                if(p[i-1] == '*'){
                     dp[i][j] = dp[i-2][j]
                 }
                 else{
