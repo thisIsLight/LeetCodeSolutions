@@ -1,0 +1,54 @@
+var romanToInt = function(s) {
+    let result = 0;
+    let i=0;
+    while(i<s.length){
+        if(s[i] == 'M'){
+            result = result + 1000
+        }
+        if(s[i] == 'C' && s[i+1] == 'M'){
+            result = result + 900
+            i=i+1
+        }
+        if(s[i] == 'D'){
+            result = result + 500
+        }
+        if(s[i] == 'C' && s[i+1] == 'D'){
+            result = result + 400
+            i=i+1
+        }
+        if(s[i] == 'C'){
+            result = result + 100
+        }
+        if(s[i] == 'X' && s[i+1] == 'C'){
+            result = result + 90
+            i=i+1
+        }
+        if(s[i] == 'L'){
+            result = result + 50
+        }
+        if(s[i] == 'X' && s[i+1] == 'L'){
+            result = result + 40
+            i=i+1
+        }
+        if(s[i] == 'X'){
+            result = result + 10
+        }
+        if(s[i] == 'I' && s[i+1] == 'X'){
+            result = result + 9
+            i=i+1
+        }
+        if(s[i] == 'V'){
+            result = result + 5
+        }
+        if(s[i] == 'I' && s[i+1] == 'V'){
+            result = result + 4
+            i=i+1
+        }if(s[i] == 'I'){
+            result = result + 1
+        }
+        
+        i=i+1;
+    }
+    
+    return result
+};
