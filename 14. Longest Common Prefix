@@ -1,0 +1,26 @@
+var longestCommonPrefix = function(strs) {
+    let result = strs[0]
+    
+    
+    for(let str of strs){
+        result = getPrefix(str, result)
+    }
+    return result
+}
+
+const getPrefix = (str, result) => {
+    let i=0;
+    let j=0;
+    let tempres = ""
+    while(i<str.length && j<result.length){
+        if(str[i] == result[j]){
+            tempres+=str[i]
+            i++
+            j++
+        }
+        else{
+            break
+        }
+    }
+    return tempres;
+}
