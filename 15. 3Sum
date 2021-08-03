@@ -1,0 +1,17 @@
+var threeSum = function(nums) {
+    var map = new Map();
+    for(let i=0; i<nums.length; i++){
+        for(let j=i+1; j<nums.length; j++){
+            if(!map.get(nums[i]+nums[j])){
+                map.set(nums[i]+nums[j], [i,j])
+            }
+        }
+    }
+    console.log(map)
+    for(let i=0; i<nums.length; i++){
+        if(map.has(-nums[i])){
+            console.log(map.get(i) +' ' + i)
+            
+        }
+    }
+};
