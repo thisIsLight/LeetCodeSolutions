@@ -1,18 +1,15 @@
-/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
- */
 var twoSum = function(nums, target) {
-    var numsHashmap = new Map();
-    for(let i = 0; i < nums.length; i++){
-        if(numsHashmap.has(target - nums[i]))
-        {
-            let result = [];
-            result.push(numsHashmap.get(target - nums[i]))
-            result.push(i);
-            return result;
+    var result = [];
+    var sumDifferenceMap = new Map();
+    for(var index=0;index<nums.length;index++) {
+        var item = nums[index];
+        if(sumDifferenceMap.has(item)){
+            result.push(sumDifferenceMap.get(item));
+            result.push(index);
+            break;
         }
-        numsHashmap.set(nums[i],i);
+        sumDifferenceMap.set(target-item, index);
     }
+    
+    return result;
 };
