@@ -16,3 +16,37 @@ var lengthOfLongestSubstring = function(s) {
     }
     return maxLen
 };
+
+
+/*
+var lengthOfLongestSubstring = function(s) {
+    if(s.length === 0){
+        return 0
+    }
+        if(s.length === 1){
+        return 1
+    }
+    
+    let currLen = 1
+    let maxLen = 0
+    let i = 0
+    let j = i+1
+    
+    while(i < s.length && j < s.length){
+        if(s.substring(i,j).indexOf(s[j]) > -1){
+            currLen = 1
+            i++
+            j=i+1
+        }
+        else{
+            currLen++
+            j++
+        }
+        if(currLen >= maxLen){
+            maxLen = currLen
+        }
+    }
+    return maxLen
+    
+};
+*/
