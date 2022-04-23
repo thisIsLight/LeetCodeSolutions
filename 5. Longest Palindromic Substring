@@ -32,3 +32,49 @@ var longestPalindrome = function(s) {
     }
     return str.slice(maxlindex,maxrindex+1)
 };
+
+
+//Another solution with higher time
+/*
+var longestPalindrome = function(s) {
+    let prev=0,next=0,i=0
+    let result = ""
+    while(i < s.length){
+        if(s[prev] === s[next] && (prev >= 0 && next < s.length)){
+            if(result.length < (s.substring(prev,next+1)).length){
+                result = s.substring(prev,next+1)
+            }
+            prev--
+            next++
+            continue
+        }
+        i++
+        prev = i
+        next = i
+    }
+    i=0
+    let j=1
+    prev = 0
+    next = 1
+    while(i < s.length && j<s.length){
+        if(s[i] === s[j] && (prev >= 0 && next < s.length)){
+            if(s[prev] === s[next]){
+                if(result.length < (s.substring(prev,next+1)).length){
+                result = s.substring(prev,next+1)
+                }
+                prev--
+                next++
+                continue
+            }
+        }
+        i++
+        j++
+        prev = i
+        next = j
+    }
+    
+    
+    
+    return result
+};
+*/
