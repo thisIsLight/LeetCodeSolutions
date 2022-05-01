@@ -37,3 +37,45 @@ var insertIntoMap = function(key, value, map){
     arr.push(value)
     map.set(key,arr)
 }
+
+
+
+//Solution 2
+// Better Speed - 92 ms
+/*
+/**
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
+ */
+var convert = function(s, numRows) {
+    if(numRows === 1){
+        return s;
+    }
+    let result = {}
+    let stringPointer = 0
+    let partitions = Math.ceil(s.length/(numRows+(numRows-2)))
+    let counter = 0
+    while(counter < partitions){
+        //Forming the first half of partition
+        for(let i=0; i< numRows && stringPointer < s.length; i++, stringPointer++){
+            if(result[i]){
+                result[i] = result[i]+s[stringPointer]
+            }
+            else{
+                result[i] = s[stringPointer]
+            }
+        }
+        //Forming the second half of the partition
+        for(let i=numRows-2; i>0 && stringPointer < s.length; i--, stringPointer++){
+            result[i] = result[i]+s[stringPointer]
+        }
+        counter++
+    }
+    var resultString = ''
+    for(let i=0;i<numRows && result[i];i++){
+        resultString+=result[i];
+    }
+    return resultString
+};
+*/
