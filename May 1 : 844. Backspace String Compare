@@ -1,0 +1,32 @@
+var backspaceCompare = function(s, t) {
+    let outs = []
+    let outt = []
+    
+    for(let i=0;i<s.length;i++){
+        if(s[i] === '#'){
+            if(outs.length === 0){
+                continue
+            }
+            outs.pop()
+            continue
+        }
+        else{
+            outs.push(s[i])
+        }
+    }
+    for(let i=0;i<t.length;i++){
+        if(t[i] === '#'){
+            if(outt.length === 0){
+                continue
+            }
+            outt.pop()
+            continue
+        }
+        else{
+            outt.push(t[i])
+        }
+    }    
+    
+    return outs.join('') === outt.join('') ? true : false
+    
+};
