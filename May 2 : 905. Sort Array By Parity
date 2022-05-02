@@ -1,0 +1,25 @@
+var sortArrayByParity = function(nums) {
+    if(nums.length <= 1){
+        return nums
+    }
+    let hashresult = {}
+    hashresult[0] = []
+    hashresult[1] = []
+    for(let i=0;i<nums.length;i++){
+        if(nums[i]%2 === 0){
+                let currArray = hashresult[0]
+                currArray.push(nums[i])
+                hashresult[0] = currArray
+        }
+        else{
+                let currArray = hashresult[1]
+                currArray.push(nums[i])
+                hashresult[1] = currArray
+        }
+    }
+    let result = []
+    result = Array.from(hashresult[0])
+    result = result.concat(hashresult[1])
+    return result
+    
+};
