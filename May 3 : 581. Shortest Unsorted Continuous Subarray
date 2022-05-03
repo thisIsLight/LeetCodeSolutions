@@ -1,0 +1,67 @@
+var findUnsortedSubarray = function(N) {
+    
+    let len = N.length
+    let startindex = -1
+    let endindex = -1
+    
+    if(len <= 1){
+        return 0
+    }
+    
+    //finding the first element from front that is unsorted
+    for(let i=0;i<len;i++){
+        if(N[i] > N[i+1]){
+            startindex = i
+            break
+        }
+    }
+    
+    if(startindex === -1){
+        return 0
+    }
+    
+    //finding the first element from end that is unsorted
+    for(let i=len; i>=0;i--){
+        if(N[i] < N[i-1]){
+            endindex = i
+            break
+        }
+    }
+    
+    console.log(startindex, endindex)
+    
+    let max = Number.MIN_SAFE_INTEGER
+    let min = Number.MAX_SAFE_INTEGER
+    
+    //finding the min and max elements from the unsorted group
+    for(let i = startindex; i<= endindex; i++){
+        if(max < N[i]){
+            max = N[i]
+        }
+        if(min > N[i]){
+            min = N[i]
+        }
+    }
+    
+    console.log(min,max)
+    
+    //checking in first half sorted array if the min exists there
+    for(let i = 0; i < startindex;i++){
+        if(N[i] > min){
+            startindex = i
+        }
+    }
+    
+    for(let i = endindex; i < len;i++){
+        if(N[i] < max){
+            endindex = i
+        }
+    }    
+    
+    
+    console.log(startindex, endindex)
+    
+    return endindex - startindex +1
+    
+    
+};
