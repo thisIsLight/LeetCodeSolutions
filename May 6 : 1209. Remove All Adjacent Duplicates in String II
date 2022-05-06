@@ -1,0 +1,27 @@
+/*
+Failed Time
+Brute Force
+
+var removeDuplicates = function(s, k) {
+    let count = 1;
+    for(let i = 0; i< s.length; i++){
+        count = 1
+        for(j = 0; j < k-1 ;j++){
+            if(s[i+j] === s[i+1+j]){
+                count++
+            }
+            else{
+                break;
+            }
+        }
+        if(count === k){
+            let charArr = s.split('')
+            charArr.splice(i,k)
+            s = charArr.join('')
+            i = -1
+        }
+    }
+    return s
+};
+
+*/
