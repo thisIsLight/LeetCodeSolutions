@@ -1,0 +1,45 @@
+var letterCombinations = function(digits) {
+    if(digits.length === 0){
+        return []
+    }
+    
+    
+    let maps = {}
+    maps[2] = ['a','b','c']
+    maps[3] = ['d','e','f']
+    maps[4] = ['g','h','i']
+    maps[5] = ['j','k','l']
+    maps[6] = ['m','n','o']
+    maps[7] = ['p','q','r','s']
+    maps[8] = ['t','u','v']
+    maps[9] = ['w', 'x','y','z']
+  
+    
+    
+    if(digits.length === 1){
+        return maps[digits]
+    }
+    
+    let chararray = digits.split('')
+    return recur(maps,chararray, 0,[],[])
+};
+
+
+
+//Recursive call to return the combination
+
+var recur = (maps,chararray,charindex,currentstring,result) => {
+    if(charindex === chararray.length){
+        result.push(currentstring.join(''))
+        return
+    }
+    else{
+        let characters = maps[chararray[charindex]]
+        for(let i=0;i<characters.length;i++){
+            currentstring.push(characters[i])
+            recur(maps,chararray,charindex+1,currentstring,result)
+            currentstring.pop()
+        }
+    }
+    return result
+}
