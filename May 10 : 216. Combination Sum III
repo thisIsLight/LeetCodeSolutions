@@ -1,0 +1,42 @@
+var combinationSum3 = function(k, n) { 
+    res = recur(n,k,0,[],[])
+    let hash = {}
+    result = []
+    for(let arr of res){
+        if(hash[arr]){
+            continue
+        }
+        else{
+            hash[arr] = 1
+            result.push(arr)
+        }
+    }
+    return result
+};
+
+var recur = (sum,k,charindex,currresult,result) => {
+    if(charindex === k){
+        let cursum = 0
+        for(let i=0;i<currresult.length;i++){
+                cursum = cursum+currresult[i]
+        }
+        let temp = Array.from(currresult)
+        if(cursum === sum){
+            temp.sort((a,b) => {return b-a})
+            result.push(temp);
+            return
+        }
+        return
+    }
+    else{
+        for(let i = 1; i <= 9 ;i++){
+            if(currresult.includes(i)){
+                continue
+            }
+            currresult.push(i)
+            recur(sum,k,charindex+1,currresult,result)
+            currresult.pop()
+        }
+    }
+    return result
+}
