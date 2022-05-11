@@ -1,0 +1,24 @@
+var countVowelStrings = function(n) {
+    let vowels = ['a', 'e', 'i', 'o', 'u']
+    
+    let result = recur(n,0,[],0,vowels,[])
+    console.log(result)
+    return result.length
+    
+};
+
+var recur = (n, curindex, curstring, index, vowels, result) => {
+    if(curindex === n){
+        result.push(curstring.join(''))
+        return
+    }
+    else{
+        for(let i=index;i<vowels.length;i++){
+            curstring.push(vowels[i])
+            recur(n,curindex+1,curstring,i,vowels,result)
+            curstring.pop()
+        }
+    }
+    return result
+    
+}
