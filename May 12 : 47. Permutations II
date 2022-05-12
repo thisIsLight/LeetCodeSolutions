@@ -1,0 +1,31 @@
+var permuteUnique = function(nums) {
+    let result = recur(nums,0,[])
+    return result
+};
+
+var recur = (nums, arrindex , result) => {
+    if(arrindex === nums.length){
+        result.push(Array.from(nums))
+        return
+    }
+    else{
+        let appeared = new Set()
+        for(let i=arrindex;i<nums.length;i++){
+            let ispresent = appeared.has(nums[i])
+            appeared.add(nums[i])
+            if(ispresent === false)
+            {
+            swap(nums,arrindex,i)
+            recur(nums,arrindex+1,result)
+            swap(nums,arrindex,i)
+            }
+        }
+    }
+    return result
+}
+
+var swap = (arr, i, j) => {
+    let temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
+}
