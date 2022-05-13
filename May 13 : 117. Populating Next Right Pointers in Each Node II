@@ -1,0 +1,71 @@
+var connect = function(root) {
+    if(!root){
+        return root
+    }
+    bfs(root)
+    return root
+};
+
+var bfs = (node) => {
+    if(node.right === null && node.left === null){
+        return
+    }
+    else{
+        let left = node.left
+        let right = node.right
+        let curnode = node
+        if(left !== null && right !==null){
+            left.next = right
+            right.next = null
+            while(curnode.next != null){
+                if(curnode.next.left !== null){
+                    right.next = curnode.next.left
+                    break
+                }
+                else if(curnode.next.right !== null){
+                    right.next = curnode.next.right
+                    break
+                }
+                else{
+                    curnode = curnode.next
+                }
+            }
+            bfs(right)
+            bfs(left)
+        }
+        else if(left){
+            left.next = null 
+            while(curnode.next !==null){
+                if(curnode.next.left !== null){
+                    left.next = curnode.next.left
+                    break
+                }
+                else if(curnode.next.right !== null){
+                    left.next = curnode.next.right
+                    break
+                }
+                else{
+                    curnode = curnode.next
+                }
+            }
+            bfs(left)
+        }
+        else if(right){
+            right.next = null
+            while(curnode.next !==null){
+                if(curnode.next.left !== null){
+                    right.next = curnode.next.left
+                    break
+                }
+                else if(curnode.next.right !== null){
+                    right.next = curnode.next.right
+                    break
+                }
+                else{
+                    curnode = curnode.next
+                }
+            }
+            bfs(right)
+        }
+    }
+}
