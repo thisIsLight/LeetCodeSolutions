@@ -1,0 +1,39 @@
+var deepestLeavesSum = function(root) {
+    if(root.left === null && root.right === null){
+        return root.value
+    }
+    let max = 0
+    let result = deepest(root,1,{})
+    for(let val in result){
+        if(parseInt(val) > parseInt(max)){
+            max = val
+        }
+    }
+    return result[max]
+};
+
+var deepest = (root,depth,depthhash) => {
+    let left = root.left
+    let right = root.right
+    if(right == null && left == null){
+        if(depthhash[depth]){
+            depthhash[depth] = depthhash[depth] + root.val
+        }
+        else{
+            depthhash[depth] = root.val
+        }
+    }
+    else{
+        if(right !== null && left !== null){
+            deepest(left,depth+1,depthhash)
+            deepest(right,depth+1,depthhash)
+        }
+        else if(right !== null){
+            deepest(right,depth+1,depthhash)
+        }
+        else if(left !== null){
+            deepest(left,depth+1,depthhash)
+        }
+    }
+    return depthhash
+}
