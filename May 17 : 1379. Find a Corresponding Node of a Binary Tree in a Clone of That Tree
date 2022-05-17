@@ -1,0 +1,39 @@
+var getTargetCopy = function(original, cloned, target) {
+    let result = {}
+    dfs(cloned,target,result)
+    return result[target]
+};
+
+var dfs = (root,target,result) => {
+    if(root.left === null && root.right === null){
+        if(root.val === target.val){
+            console.log('found in base case')
+            result[target] = root
+        }
+        else{
+            return null
+        }
+    }
+    else{
+        if(root.val === target.val){
+            console.log('found in else case')
+            result[target] = root
+        }
+        else{
+            let left = root.left
+            let right = root.right
+            
+            if(left !== null && right !== null){
+                dfs(left,target,result)
+                dfs(right,target,result)
+            }
+            else if(left !== null){
+                dfs(left,target,result)
+            }
+            else{
+                dfs(right,target,result)
+            }
+        }
+    }
+    return result
+}
