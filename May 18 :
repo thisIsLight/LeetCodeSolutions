@@ -1,0 +1,65 @@
+//Right answer but failing with 10^5 test sets
+//Learn Tarzan's Algorithm for this question
+/*
+var criticalConnections = function(n, connections) {
+    let result = []
+    let conmap = []
+    for(let i=0;i<n;i++){
+        conmap.push([])
+    }
+    for(let i=0;i<connections.length;i++){
+        conmap[connections[i][0]].push(connections[i][1])
+        conmap[connections[i][1]].push(connections[i][0])
+    }
+    
+    for(let j=0;j<connections.length;j++){
+        let curnode = connections[j]
+        arrayRemove(conmap[curnode[0]],curnode[1])
+        arrayRemove(conmap[curnode[1]],curnode[0])
+        let haspath = checkpath(curnode[0], curnode[1], conmap)
+        if(!haspath){
+            result.push(curnode)
+        }
+        conmap[curnode[0]].push(curnode[1])
+        conmap[curnode[1]].push(curnode[0])
+    }
+    return result
+};
+
+var checkpath = (from, to, graph) => {
+    
+    if(from === to){
+        return true
+    }
+    let queue = []
+    let visited = {}
+    
+    queue.push(from)
+    visited[from] = 1
+    
+    while(queue.length > 0){
+        let cur = queue.shift()
+        
+        for(let i=0;i<graph[cur].length;i++){
+            if(graph[cur][i] === to){
+                return true
+            }
+            if(!visited[graph[cur][i]]){
+                visited[graph[cur][i]] = 1
+                queue.push(graph[cur][i])
+            }
+        }
+    }
+    return false
+}
+
+function arrayRemove(arr, value) { 
+      for( var i = 0; i < arr.length; i++){ 
+                                   
+        if ( arr[i] === value) { 
+            arr.splice(i, 1); 
+            i--; 
+        }
+    }
+}
+*/
