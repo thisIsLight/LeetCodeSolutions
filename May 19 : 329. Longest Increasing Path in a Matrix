@@ -1,5 +1,67 @@
-//couldnt pass time complexity with this
+//could pass with DFS and saving the value
 
+var longestIncreasingPath = function(matrix) {
+    if(matrix.length === 1 && matrix[0].length === 1){
+        return 1
+    }
+    
+    let rowlen = matrix.length;
+    let collen = matrix[0].length;
+    let maxpathlength = 0
+    let pathmatrix = []
+    for(let i=0;i<matrix.length;i++){
+        pathmatrix.push([])
+        for(let j=0;j<matrix[0].length;j++){
+            pathmatrix[i][j] = 0
+        }
+    }
+    
+    
+    for(let i=0;i<rowlen;i++){
+        for(let j=0;j<collen;j++){
+            if(pathmatrix[i][j] === 0){
+                maxpathlength = Math.max(maxpathlength, dfs(matrix,i,j,rowlen,collen,pathmatrix))
+            }
+        }
+    }
+    
+    return maxpathlength
+};
+
+var dfs = (matrix,i,j,rowlen,collen,pathmatrix) => {
+    
+    if(pathmatrix[i][j] > 0){
+        return pathmatrix[i][j]
+    }
+    
+    let curlength = 1
+    
+    let direction = [[-1,0],[1,0],[0,1],[0,-1]]
+    
+    for(let dir of direction){
+        let nextX = i + dir[0];
+        let nextY = j + dir[1];
+
+        if (nextX < 0 || nextX >= rowlen || nextY < 0 || nextY >= collen) {
+            continue;
+        }
+
+        if (matrix[nextX][nextY] <= matrix[i][j]) {
+            continue;
+        }
+
+        curlength = Math.max(curlength, dfs(matrix,nextX,nextY,rowlen,collen,pathmatrix) + 1);
+    }
+    pathmatrix[i][j] = curlength
+    return curlength
+}
+
+
+
+
+
+//couldnt pass time complexity with this
+/*
 var longestIncreasingPath = function(matrix) {
     if(matrix.length === 1 && matrix[0].length === 1){
         return 1
@@ -51,4 +113,4 @@ var bfs = (matrix,i,j,row,col) => {
     }
     return curlength
 }
-
+*/
