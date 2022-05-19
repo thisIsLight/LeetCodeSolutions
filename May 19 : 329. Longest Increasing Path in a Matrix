@@ -1,0 +1,54 @@
+//couldnt pass time complexity with this
+
+var longestIncreasingPath = function(matrix) {
+    if(matrix.length === 1 && matrix[0].length === 1){
+        return 1
+    }
+    
+    let rowlen = matrix.length;
+    let collen = matrix[0].length;
+    let maxpathlength = 0
+    
+    for(let i=0;i<rowlen;i++){
+        for(let j=0;j<collen;j++){
+            let curlength = bfs(matrix,i,j,rowlen,collen)
+            if(curlength > maxpathlength){
+                maxpathlength = curlength
+            }
+        }
+    }
+    
+    return maxpathlength
+};
+
+var bfs = (matrix,i,j,row,col) => {
+    
+    let queue = []
+    queue.push([i,j])
+    let curlength = 0
+    let direction = [[-1,0],[1,0],[0,1],[0,-1]]
+    
+    while(queue.length > 0){
+        let count = queue.length
+        curlength++
+        for(let i=0;i<count;i++){
+            let curnode = queue.shift()
+            for(let dir of direction){
+                let newx = curnode[0] + dir[0]
+                let newy = curnode[1] + dir[1]
+                
+                if (newx < 0 || newx >= row || newy < 0 || newy >= col) {
+                    continue;
+                }
+
+                if (matrix[newx][newy] <= matrix[curnode[0]][curnode[1]]) {
+                    continue;
+                }
+
+                queue.push([newx,newy])
+            }
+        }
+    }
+    return curlength
+}
+
