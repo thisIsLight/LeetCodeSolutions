@@ -1,0 +1,37 @@
+var uniquePathsWithObstacles = function(obstacleGrid) {
+    let row = obstacleGrid.length
+    let col = obstacleGrid[0].length
+    
+    let dp = []
+    for(let i=0;i<row;i++){
+        dp.push([])
+        for(let j=0;j<col;j++){
+            dp[i][j] = -1
+        }
+    }
+    
+    
+    let result = dfs(obstacleGrid,0,0,row,col,dp)
+    return result
+    
+};
+
+var dfs = (mat,i,j,row,col,dp) => {
+    if(i < 0 || j < 0 || i > row-1 || j > col-1 || mat[i][j] !== 0){
+        return 0
+    }
+    if(i === row-1 && j === col-1){
+        return 1
+    }
+    if(dp[i][j] !== -1){
+        return dp[i][j]
+    }
+    
+    let path = 0
+    
+    path = path + dfs(mat,i+1,j,row,col,dp) + dfs(mat,i,j+1,row,col,dp)
+    
+    dp[i][j] = path
+    
+    return dp[i][j]
+}
