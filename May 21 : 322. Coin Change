@@ -1,0 +1,58 @@
+var coinChange = function(coins, amount) {
+    
+    //we are learning new dp code called napsack
+    //what we do in this is basically find the previous possible combinations and then use it for current amount
+    //we create rows = coins numbers+1 and cols = amount+1
+    //we will fill the cells to find sum for each amount
+    
+    let dp = []
+    for(let i=0;i<coins.length+1;i++){
+        dp.push([])
+        for(let j=0;j<amount+1;j++){
+            dp[i][j] = 0
+        }
+    }
+    
+    //this formed the matrix that will store coinds for each amount till actual amount is reached
+    
+    for(let i=0;i<dp.length;i++){
+        for(let j=0;j<dp[0].length;j++){
+            //here j is going to be the amount that we want to calculate from the coins
+            //i is going to be the coin that we can use currently
+            //Any coin before i can be used
+            if(j==0){
+                //this means the amount is 0
+                //0 amount can be formed by having 0 coins
+                dp[i][j] = 0
+            }
+            else if(i==0){
+                //this means we can't use any coin
+                //since no coins are used, we can't have amount 
+                //hence we will add MAX_SAFE_INTEGER
+                dp[i][j] = Number.MAX_SAFE_INTEGER
+            }
+            else if(j < coins[i-1]){
+                //we will check if the amount is smaller than the current coin
+                //if it is smaller, best way to form that amount will be nothing but whatever was made before that coing
+                //i.e. the sum by previous coins for that amount
+                dp[i][j] = dp[i-1][j]
+            }
+            else{
+                //it will come to this clause only when we can include the current coin
+                //here we will try to check if we include the current coin, is the amount going to come
+                //and also check if the number of coins are more than what the previous coins gave for this amount
+                //How we can find the coin sum for this is -> we add one to the sum of ->
+                //current amount i.e. j minus
+                //if we reduce j, we will be left with amount where we have j removed in the previous row 
+                //i.e. the moust that comes, what was the coins needed when we don't have this coin 
+                // hence -> j-dp[i-1][j-coin[i-1]] -> j - coin[i-1] gives the last coin used
+                dp[i][j] = Math.min(1+dp[i][j-coins[i-1]], dp[i-1][j])
+            }
+            
+        }
+    }
+        
+    return dp[dp.length-1][dp[0].length-1] === Number.MAX_SAFE_INTEGER ? -1 : dp[dp.length-1][dp[0].length-1]
+    
+    
+};
