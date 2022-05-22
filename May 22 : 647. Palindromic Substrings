@@ -1,0 +1,44 @@
+var countSubstrings = function(s) {
+    
+    //we can use the longest palindromic method and for every pass, we will increase the value instead of updating max length
+    let result = 0
+    let isEven = false
+    let len = s.length
+    let i=0
+    while(i<len){
+        
+        //check for odd positions
+        let j=i;
+        let k=i;
+        while(j > -1 && k < len){
+            if(s[j] === s[k]){
+                result++
+                j--;
+                k++
+            }
+            else{
+                break
+            }
+        }
+        
+        //check for even position
+        j=i;
+        k=i+1
+        while(j>-1 && k<len){
+            if(s[j] === s[k]){
+                result++
+                j--;
+                k++
+            }
+            else{
+                break
+            }
+        }
+        
+        //updating the value of i
+        i++
+    }
+    
+    return result
+    
+};
