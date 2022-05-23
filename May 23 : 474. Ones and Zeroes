@@ -1,0 +1,37 @@
+var findMaxForm = function(strs, m, n) {
+    let dp = []
+    for(let i=0;i<m+1;i++){
+        dp.push([])
+        for(let j=0;j<n+1;j++){
+            dp[i][j] = 0
+        }
+    }
+    console.log(dp)
+    
+    for(let str of strs){
+        let count = countzeroandone(str)
+        for(let i=m;i>=count[0];i--){
+            for(let j=n;j>=count[1];j--){
+                dp[i][j] = Math.max(dp[i-count[0]][j-count[1]]+1, dp[i][j])
+            }
+        }
+    }
+    return dp[m][n]
+};
+
+
+var countzeroandone = (str) => {
+    let arr = {}
+    arr[0] = 0
+    arr[1] = 0
+    for(let char of str){
+        if(arr[char]){
+            arr[char]++
+        }
+        else{
+            arr[char] = 1
+        }
+    }
+    
+    return arr
+}
