@@ -1,0 +1,25 @@
+var numberOfSteps = function(num) {
+    if(num === 0){
+        return 0
+    }
+    if(num === 1){
+        return 1
+    }
+    let iseven = (num%2 === 0)
+    let res = 0
+    if(!iseven){
+        res++
+        num = num-1
+    }
+    while(num > 1){
+        if(num%2 === 0){
+            num = Math.floor(num/2)
+        }
+        else{
+            num = num-1
+        }
+        res++
+    }
+    
+    return res+1
+}
