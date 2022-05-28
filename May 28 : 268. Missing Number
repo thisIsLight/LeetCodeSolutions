@@ -1,0 +1,18 @@
+var missingNumber = function(nums) {
+    let numsum = 0
+    let max = -1
+    for(num of nums){
+        if(max <= num){
+            max = num
+        }
+        numsum += num
+    }
+    let mathsum = Math.floor((max*(max+1))/2)
+    let diff = mathsum-numsum
+    if(diff === 0 && max === nums.length){
+        return 0
+    }
+    else{
+        return diff === 0 ? max+1 : diff
+    }
+};
