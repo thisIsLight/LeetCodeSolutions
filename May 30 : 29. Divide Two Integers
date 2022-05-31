@@ -1,0 +1,16 @@
+var divide = function(dividend, divisor) {
+    
+    let sign = (dividend <= 0 && divisor <= 0) || (dividend > 0 && divisor > 0) ? 1: -1;
+    let log = Math.log(Math.abs(dividend))-Math.log(Math.abs(divisor))
+    let ans = Math.floor(Math.exp(log))
+    let limit = 2**31 - 1
+    if(sign >= 0){
+         ans = ans > limit?limit:ans
+    }else{
+         ans = 0-(ans > limit?limit+1:ans)
+    }
+   
+    return ans
+    
+    
+};
