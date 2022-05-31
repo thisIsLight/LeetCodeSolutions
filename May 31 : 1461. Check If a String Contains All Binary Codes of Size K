@@ -1,0 +1,18 @@
+var hasAllCodes = function(s, k) {
+    
+    if(s.length < k){
+        return false
+    }
+    
+    let rescount = Math.pow(2,k)
+    
+    let hash = {}
+    for(let i=0;i<s.length-k+1;i++){
+        if(!hash[s.substring(i,k+i)]){
+            hash[s.substring(i,k+i)] = 1
+            rescount--
+        }
+    }
+    
+    return rescount > 0 ? false : true
+};
