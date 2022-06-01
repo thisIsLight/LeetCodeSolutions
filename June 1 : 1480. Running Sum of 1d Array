@@ -1,0 +1,14 @@
+var runningSum = function(nums) {
+    if(nums.length === 0 || nums.length === 1){
+        return nums
+    }
+    
+    let presum = 0
+    let res = []
+    for(i=0;i<nums.length;i++){
+        presum = presum+nums[i]
+        res.push(presum)
+    }
+    
+    return res
+};
