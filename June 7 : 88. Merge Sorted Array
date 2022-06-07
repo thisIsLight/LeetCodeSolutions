@@ -1,0 +1,34 @@
+var merge = function(nums1, m, nums2, n) {
+    
+    if(n === 0){
+        return
+    }
+    
+    let i=0;
+    let j=0;
+    while( i < nums1.length && j < n ){
+        if(nums1[i] >= nums2[j]){
+            shift(i,nums2[j],nums1)
+            i++
+            j++
+        }
+        else{
+            i++
+        }
+    }
+    i = i-(n-j)
+    console.log(i,j)
+    while(j<n){
+        nums1[i] = nums2[j]
+        i++
+        j++
+    }
+    return
+};
+
+var shift = (index,number,arr) => {
+    for(let i=arr.length-1;i>index;i--){
+        arr[i] = arr[i-1]
+    }
+    arr[index] = number
+}
