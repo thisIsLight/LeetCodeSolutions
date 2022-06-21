@@ -1,0 +1,101 @@
+var furthestBuilding = function(heights, bricks, ladders) {
+    
+    if(bricks === 0 && ladders === 0){
+        for(let i=0;i<heights.length-1;i++){
+            if(heights[i] < heights[i+1]){
+                return i
+            }
+        }
+        return heights.length
+    }
+    
+    let diff = new Array(heights.length)
+    diff[0] = 0
+    for(let i=1;i<heights.length;i++){
+        if(heights[i] <= heights[i-1]){
+            diff[i] = 0
+        }
+        else{
+            diff[i] = heights[i] - heights[i-1]
+        }
+    }
+    
+    //if ladders are zero, then we are totally dependent on the bricks
+    
+    if(ladders === 0){
+        let i=0
+        let sum = 0
+        while(i<diff.length){
+            sum+=diff[i]
+            if(sum > bricks){
+                return i-1
+            }
+            i++
+        }
+        return diff.length-1
+    }
+    
+    //if bricks are zero, then we are totally dependent on the ladders
+    
+    if(bricks === 0){
+        let i=0
+        while(i<diff.length && (ladders > 0 || diff[i]===0)){
+            if(diff[i]!==0){
+                ladders--
+            }
+            i++
+            console.log(ladders,i)
+        }
+        return i-1
+    }
+    
+    //if bricks and ladders have value more than 1
+    
+    let ladarr = []
+    let sum = 0
+    let sort = true
+    for(let i=0;i<diff.length;i++){
+        //continue if the diff[i] is 0
+        if(diff[i] === 0){
+            continue
+        }
+        
+        //push into ladarr if more ladders are left
+        if(ladarr.length < ladders){
+            ladarr.push(diff[i])
+        }
+        
+        //start operating after ladders are pushed
+        else{
+            //sort the ladarr
+            if(sort){
+                ladarr.sort((a,b) => { return a-b })
+            }
+            //check if the current value is qualified for the max ladder array
+            let curval = diff[i]
+            let index = -1
+            for(let i=0;i<ladarr.length;i++){
+                if(curval > ladarr[i]){
+                    index = i
+                    break
+                }
+            }
+            
+            //if index other than -1, we have the curval qualified for ladarr at index - index
+            if(index !== -1){
+                let removedval = ladarr[index]
+                ladarr[index] = curval
+                sum = sum+removedval
+            }
+            else{
+                sum=sum+curval
+            }
+            
+            if(sum > bricks){
+                return i-1
+            }
+        }
+        
+    }
+    return diff.length-1
+};
