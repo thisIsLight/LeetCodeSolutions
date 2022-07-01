@@ -1,0 +1,27 @@
+/**
+ * @param {number[][]} boxTypes
+ * @param {number} truckSize
+ * @return {number}
+ */
+var maximumUnits = function(boxTypes, truckSize) {
+    
+    boxTypes.sort((a,b) => {
+        return b[1] - a[1]
+    })
+    let i = 0
+    let loadedSize = 0
+    let totalUnit = 0
+    while(i < boxTypes.length && loadedSize <= truckSize && (truckSize-loadedSize) >= boxTypes[i][0]){
+        totalUnit = totalUnit + boxTypes[i][0]*boxTypes[i][1]
+        loadedSize += boxTypes[i][0]
+        i++
+    }
+        
+    //check if the loadedSize is not equal to truckSize and the 
+    //boxes are not exhausted.
+    if(i > boxTypes.length-1){
+        return totalUnit
+    }
+    totalUnit += (truckSize-loadedSize)*boxTypes[i][1]
+    return totalUnit
+};
