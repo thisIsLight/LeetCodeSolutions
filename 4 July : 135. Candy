@@ -1,0 +1,70 @@
+var candy = function(ratings) {
+    
+    //if 1 person
+    if(ratings.length === 1){
+        return 1
+    }
+    
+    let res = new Array(ratings.length)
+    for(let i=0;i<res.length;i++){
+        res[i] = 1
+    }
+    
+    let len = ratings.length
+    //running from start to end
+    for(let i=0;i<len;i++){
+        
+        //if first element
+        if(i === 0){
+            if(ratings[i] > ratings[i+1]){
+                res[i] = 2
+            }
+        }
+        
+        //if last element
+        else if(i === len-1){
+            if(ratings[i] > ratings[i-1]){
+                res[i] = res[i-1]+1
+            }
+        }
+        
+        //if intermediate element
+        else{
+            //if both the elements are greater
+            if(ratings[i] > ratings[i-1] && ratings[i] > ratings[i+1]){
+                res[i] = res[i-1] > res[i+1] ? res[i-1]+1 : res[i+1]+1
+            }
+            
+            //if left element is greater only
+            else if(ratings[i] > ratings[i-1]){
+                res[i] = res[i-1]+1
+            }
+            
+            //if right element is greater
+            else if(ratings[i]> ratings[i+1]){
+                res[i] = res[i+1]+1
+            }
+            
+            //if neither are true, then keep it as 1
+            else{
+                res[i] = 1
+            }
+        }
+    }
+    
+    //running from end to start
+    for(let i=len-2;i>=0;i--){
+        if(ratings[i] > ratings[i+1]){
+            
+            if(res[i] <= res[i+1]){
+                res[i] = res[i+1]+1
+            }
+        }
+    }
+    
+    let sum = 0
+    for(let i=0;i<res.length;i++){
+        sum = sum+ res[i]
+    }
+    return sum
+};
