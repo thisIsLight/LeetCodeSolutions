@@ -1,0 +1,49 @@
+/**
+ * @param {number[]} matchsticks
+ * @return {boolean}
+ */
+var makesquare = function(matchsticks) {
+    
+    if(matchsticks.length < 4){
+        return false
+    } 
+    let sum = 0
+    for(let i=0;i<matchsticks.length;i++){
+        sum = sum+matchsticks[i]
+    }
+    let side = sum/4
+    if(side % 1 !== 0){
+        return false
+    }    
+    matchsticks.sort( (a,b) => { return b-a})   
+    
+    if(matchsticks[matchsticks.length-1] > side){
+        return false
+    }
+    console.log(matchsticks, sum, side)
+    let sides = []
+    for(let i=0;i<4;i++){
+        sides.push(0)
+    }
+    
+    
+    let res = backtrack(sides,side,matchsticks,0)
+    return res
+};
+
+var backtrack = (sides,side,matchsticks,index) => {
+    if(index === matchsticks.length){
+        return true
+    }
+    
+    for(let i=0;i<4;i++){
+        if(sides[i]+matchsticks[index] <= side){
+            sides[i] += matchsticks[index]
+            if(backtrack(sides,side,matchsticks,index+1)){
+                return true
+            }
+            sides[i] -= matchsticks[index]
+        }
+    }
+    return false
+}
