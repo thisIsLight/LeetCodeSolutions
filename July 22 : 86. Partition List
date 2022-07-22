@@ -1,0 +1,40 @@
+var partition = function(head, x) {
+    let reshead = null
+    let current = null
+    let itr = head
+    while(itr !== null){
+        if(itr.val < x){
+            if(reshead === null){
+                let temp = new ListNode(itr.val)
+                reshead = temp
+                res = reshead
+            }
+            else{
+                let temp = new ListNode(itr.val)
+                res.next = temp
+                res = res.next
+            }
+        }
+        itr = itr.next
+    }
+    
+    itr = head
+    while(itr !== null){
+        if(itr.val >= x){
+            if(reshead === null){
+                let temp = new ListNode(itr.val)
+                reshead = temp
+                res = reshead
+            }
+            else{
+                let temp = new ListNode(itr.val)
+                res.next = temp
+                res = res.next
+            }
+        }
+        itr = itr.next
+    }
+    
+    return reshead
+    
+};
