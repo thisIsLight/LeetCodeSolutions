@@ -1,0 +1,47 @@
+var searchMatrix = function(matrix, target) {
+    let col = 0
+    let row = 0
+    let res = false  
+    
+    for(let i=0;i<matrix[0].length;i++){
+        if(matrix[0][i] < target){
+            col = i
+        }
+        else if(matrix[0][i] === target){
+            return true
+        }
+    }
+    
+    for(let i=0;i<matrix.length;i++){
+        if(matrix[i][0] < target){
+            row = i
+        }
+        else if(matrix[i][0] === target){
+            return true
+        }
+    }
+        
+    //searching through the row
+    for(let i=0;i<=row;i++){
+        for(let j=0;j<=col;j++){
+            if(matrix[i][j] === target){
+                return true
+            }
+        }
+    }
+    return false
+};
+
+function binarySearch(arr, l, r, x){
+    if (r >= l) {
+        let mid = l + Math.floor((r - l) / 2);
+        if (arr[mid] == x)
+            return true;
+        if (arr[mid] > x)
+            return binarySearch(arr, l, mid - 1, x);
+        return binarySearch(arr, mid + 1, r, x);
+    }
+    else{
+        return false
+    }
+}
