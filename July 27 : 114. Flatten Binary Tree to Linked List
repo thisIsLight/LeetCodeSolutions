@@ -1,0 +1,18 @@
+var flatten = function(root) {
+    let cur = root
+    
+    while(cur != null){
+        if(cur.left !== null){
+            let prev = cur.left
+            while(prev.right != null){
+                prev = prev.right
+            }
+            prev.right = cur.right
+            cur.right = cur.left
+            cur.left = null
+        }
+        cur = cur.right
+    }
+    console.log(root)
+    
+};
