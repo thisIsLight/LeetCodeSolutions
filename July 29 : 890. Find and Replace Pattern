@@ -1,0 +1,43 @@
+var findAndReplacePattern = function(words, pattern) {
+    let res = []
+    
+    for(let i=0;i<words.length;i++){
+        if(test(words[i],pattern)){
+            res.push(words[i])
+        }
+    }
+    return res
+};
+
+var test = (str1,str2) => {
+    if(str1.length !== str2.length){
+        return false
+    }
+    let map1 = {}
+    let map2 = {}
+    
+    for(let i=0;i<str1.length;i++){
+        if(map1[str1[i]]){
+            if(map1[str1[i]] !== str2[i]){
+                return false
+            }
+        }
+        else{
+            map1[str1[i]] = str2[i]
+        }
+    }
+    
+    
+    for(let i=0;i<str2.length;i++){
+        if(map2[str2[i]]){
+            if(map2[str2[i]] !== str1[i]){
+                return false
+            }
+        }
+        else{
+            map2[str2[i]] = str1[i]
+        }
+    }
+    
+    return true
+}
