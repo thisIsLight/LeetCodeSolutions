@@ -1,0 +1,21 @@
+var isPowerOfFour = function(n) {
+    return recur(n)
+};
+
+var recur = (n) => {
+    if(n === 1){
+        return true
+    }
+    if(n<4){
+        return false
+    }
+    else{
+        if(n%4 === 0){
+            console.log(4)
+            return recur(n/4)
+        }
+        else{
+            return false
+        }
+    }
+}
