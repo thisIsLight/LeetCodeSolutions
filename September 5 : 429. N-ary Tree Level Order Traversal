@@ -1,0 +1,25 @@
+var levelOrder = function(root) {
+    if(root == null){
+        return []
+    }
+    let res = []
+    let queue = []
+    
+    
+    queue.push(root)
+    
+    while(queue.length > 0){
+        let len = queue.length
+        let partres = []
+        for(let i=0;i<len;i++){
+            let cur = queue.shift()
+            partres.push(cur.val)
+            for(let child of cur.children){
+                queue.push(child)
+            }
+        }
+        res.push(partres)
+    }
+    return res
+    
+};
