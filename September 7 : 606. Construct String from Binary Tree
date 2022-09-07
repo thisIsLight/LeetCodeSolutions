@@ -1,0 +1,27 @@
+var tree2str = function(root) {
+    let res = []
+    var preorder = (root) => {
+        if(root === null){
+            return
+        }
+        else{
+            res.push(root.val)
+            res.push('(')
+            preorder(root.left)
+            res.push(')')
+            res.push('(')
+            preorder(root.right)
+            res.push(')')
+            if(root.right == null){
+                res.pop()
+                res.pop()
+                if(root.left == null){
+                    res.pop()
+                    res.pop()
+                }
+            }
+        }
+    }
+    preorder(root)
+    return res.join("")
+};
