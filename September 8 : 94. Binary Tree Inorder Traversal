@@ -1,0 +1,15 @@
+var inorderTraversal = function(root) {
+    let res = []
+    var inorder = (root) => {
+        if(root == null){
+            return
+        }
+        else{
+            inorder(root.left)
+            res.push(root.val)
+            inorder(root.right)
+        }
+    }
+    inorder(root)
+    return res
+};
